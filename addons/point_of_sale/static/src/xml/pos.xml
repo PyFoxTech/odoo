@@ -872,16 +872,16 @@
 
     <t t-name="OrderReceipt">
         <div class="pos-receipt">
-            <t t-if='receipt.company.logo'>
+            <!-- <t t-if='receipt.company.logo'>
                 <img class="pos-receipt-logo" t-att-src='receipt.company.logo' alt="Logo"/>
                 <br/>
-            </t>
-            <t t-if='!receipt.company.logo'>
+            </t> -->
+            <!-- <t t-if='!receipt.company.logo'>
                 <h2 class="pos-receipt-center-align">
                     <t t-esc='receipt.company.name' />
                 </h2>
                 <br/>
-            </t>
+            </t> -->
             <div class="pos-receipt-contact">
                 <t t-if='receipt.company.contact_address'>
                     <div><t t-esc='receipt.company.contact_address' /></div>
@@ -890,7 +890,7 @@
                     <div>Tel:<t t-esc='receipt.company.phone' /></div>
                 </t>
                 <t t-if='receipt.company.vat'>
-                    <div>VAT:<t t-esc='receipt.company.vat' /></div>
+                    <div>GSTIN:<t t-esc='receipt.company.vat' /></div>
                 </t>
                 <t t-if='receipt.company.email'>
                     <div><t t-esc='receipt.company.email' /></div>
@@ -902,7 +902,7 @@
                     <t t-raw='receipt.header_html' />
                 </t>
                 <t t-if='!receipt.header_html and receipt.header'>
-                    <div><t t-esc='receipt.header' /></div>
+                    <div class="header"><t t-raw='receipt.header' /></div>
                 </t>
                 <t t-if='receipt.cashier'>
                     <div class='cashier'>
@@ -948,6 +948,7 @@
                             </span>
                         </div>
                     </t>
+                    <hr/>
                 </t>
             </div>
 
@@ -1015,13 +1016,13 @@
             <div class='before-footer' />
 
             <!-- Footer -->
-            <div t-if='receipt.footer_html'  class="pos-receipt-center-align">
+            <div t-if='receipt.footer_html'>
                 <t t-raw='receipt.footer_html'/>
             </div>
 
-            <div t-if='!receipt.footer_html and receipt.footer'  class="pos-receipt-center-align">
+            <div t-if='!receipt.footer_html and receipt.footer'>
                 <br/>
-                <t t-esc='receipt.footer'/>
+                <t t-raw='receipt.footer'/>
                 <br/>
                 <br/>
             </div>

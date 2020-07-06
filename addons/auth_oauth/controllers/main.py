@@ -5,6 +5,7 @@ import functools
 import logging
 
 import json
+import random
 
 import werkzeug.urls
 import werkzeug.utils
@@ -63,6 +64,7 @@ class OAuthLogin(Home):
                 response_type='token',
                 client_id=provider['client_id'],
                 redirect_uri=return_url,
+                nonce=self.generate_nonce(10),
                 scope=provider['scope'],
                 state=json.dumps(state),
             )
@@ -113,6 +115,10 @@ class OAuthLogin(Home):
         result = super(OAuthLogin, self).get_auth_signup_qcontext()
         result["providers"] = self.list_providers()
         return result
+
+    def generate_nonce(self, length=8):
+        """Generate pseudorandom number."""
+        return ''.join([str(random.randint(0, 9)) for i in range(length)])
 
 
 class OAuthController(http.Controller):
