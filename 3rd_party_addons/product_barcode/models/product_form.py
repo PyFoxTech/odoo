@@ -24,6 +24,14 @@ import math
 import re
 from odoo import api, models
 
+import random
+import string
+
+
+def generate_random_string(stringLength=8):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
+
 
 class ProductAutoBarcode(models.Model):
     _inherit = 'product.product'
@@ -31,7 +39,7 @@ class ProductAutoBarcode(models.Model):
     @api.model
     def create(self, vals):
         res = super(ProductAutoBarcode, self).create(vals)
-        ean = generate_ean(str(res.id))
+        ean = generate_ean(generate_random_string(13) + str(res.id))
         res.barcode = ean
         print("res.barcode",res.barcode)
         return res
