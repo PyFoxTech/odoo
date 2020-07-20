@@ -1,0 +1,2 @@
+raven==6.10.0
+pycrypto==2.6.1
