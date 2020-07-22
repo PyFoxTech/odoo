@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source /opt/odoo/odoo/venv/bin/activate;
+PATH="/opt/odoo/odoo/venv/bin:$PATH";
 
 python3 /opt/odoo/odoo/odoo-bin -c /etc/odoo.conf
