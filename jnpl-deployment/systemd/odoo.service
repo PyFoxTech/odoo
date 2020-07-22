@@ -1,0 +1,10 @@
+[Unit]
+   Description=Odoo
+   Documentation=http://www.odoo.com
+   [Service]
+   # Ubuntu/Debian convention:
+   Type=simple
+   User=odoo
+   ExecStart=/opt/odoo/odoo/jnpl-deployment/scripts/run-odoo13.sh
+   [Install]
+   WantedBy=default.target
