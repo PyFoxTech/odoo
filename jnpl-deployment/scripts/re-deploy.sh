@@ -10,4 +10,4 @@ pip install -r requirements-3rd-party.txt;
 pip install -r requirements-dev.txt;
 pip install -r requirements-jnpl.txt;
 
-systemctl --user restart odoo.service;
+pkill -F /tmp/odoo-13.pid

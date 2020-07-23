@@ -30,8 +30,13 @@ pip install -r requirements-dev.txt;
 pip install -r requirements-jnpl.txt;
 ```
 
-##### Enable `odoo.service`
+<!-- ##### Enable `odoo.service`
 ```bash
 sudo su odoo;
 systemctl --user enable --now /opt/odoo/odoo/jnpl-deployment/systemd/odoo.service;
+``` -->
+
+##### Enable `odoo.conf` in supervisor
+```bash
+sudo ln -sf /opt/odoo/odoo/jnpl-deployment/supervisor/odoo.conf /etc/supervisor/conf.d/
 ```
