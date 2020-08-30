@@ -2276,7 +2276,7 @@ exports.Order = Backbone.Model.extend({
         } else {
             this.sequence_number = this.pos.pos_session.sequence_number++;
             this.uid  = this.generate_unique_id();
-            this.name = _.str.sprintf(_t("Order %s"), this.uid);
+            this.name = _.str.sprintf(_t("Order # %s"), this.uid);
             this.validation_date = undefined;
             this.fiscal_position = _.find(this.pos.fiscal_positions, function(fp) {
                 return fp.id === self.pos.config.default_fiscal_position_id[0];
@@ -2325,7 +2325,7 @@ exports.Order = Backbone.Model.extend({
         }
         this.session_id = this.pos.pos_session.id;
         this.uid = json.uid;
-        this.name = _.str.sprintf(_t("Order %s"), this.uid);
+        this.name = _.str.sprintf(_t("Order # %s"), this.uid);
         this.validation_date = json.creation_date;
         this.server_id = json.server_id ? json.server_id : false;
         this.user_id = json.user_id;
@@ -2450,7 +2450,13 @@ exports.Order = Backbone.Model.extend({
             }
         }
 
+        var ampm = date.getHours() >= 12 ? 'pm' : 'am';
+        var hours12 = date.getHours() % 12;
+        hours12 = hours12 ? hours12 : 12; // the hour '0' should be '12'
+
         var receipt = {
+            totalItems: orderlines.length,
+            totalQuantity: orderlines.reduce((sum, line) => sum + line.quantity, 0),
             orderlines: orderlines,
             paymentlines: paymentlines,
             subtotal: this.get_subtotal(),
@@ -2463,6 +2469,7 @@ exports.Order = Backbone.Model.extend({
             change: this.get_change(),
             name : this.get_name(),
             client: client ? client.name : null ,
+            clientPhone: client ? client.phone || client.mobile || "" : null,
             invoice_id: null,   //TODO
             cashier: cashier ? cashier.name : null,
             precision: {
@@ -2476,9 +2483,13 @@ exports.Order = Backbone.Model.extend({
                 date: date.getDate(),       // day of the month
                 day: date.getDay(),         // day of the week
                 hour: date.getHours(),
+                ampm,
+                hours12,
                 minute: date.getMinutes() ,
                 isostring: date.toISOString(),
                 localestring: date.toLocaleString(),
+                formattedDate: date.getDate().toLocaleString("en", { minimumIntegerDigits: 2 }) + "." + (date.getMonth() + 1).toLocaleString("en", { minimumIntegerDigits: 2 }) + "." + date.getFullYear(),
+                formattedTime: hours12.toLocaleString("en", { minimumIntegerDigits: 2 }) + ":" + date.getMinutes().toLocaleString("en", { minimumIntegerDigits: 2 }) + " " + ampm,
             },
             company:{
                 email: company.email,

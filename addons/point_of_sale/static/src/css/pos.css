@@ -1465,8 +1465,8 @@ td {
     text-align: left;
     width: 300px;
     background-color: white;
-    margin: 20px;
-    padding: 15px;
+    /* margin: 20px;
+    padding: 15px; */
     font-size: 16px;
     padding-bottom:30px;
     display: inline-block;
@@ -1544,9 +1544,10 @@ td {
         margin: 0;
         margin-left: auto !important;
         margin-right: auto !important;
+        padding: 0;
         border: none !important;
         font-size: 10px !important;
-        width: 160px !important;
+        width: 180px !important;
     }
     .o_debug_manager {
         display: none !important;

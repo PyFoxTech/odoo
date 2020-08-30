@@ -8,7 +8,8 @@ var core = require('web.core');
 var models = require('point_of_sale.models');
 var PosModelSuper = models.PosModel;
 var pos_screens = require('point_of_sale.screens');
-var Model = require('web.DataModel');
+// var Model = require('web.DataModel');
+var rpc = require('web.rpc');
 var QWeb = core.qweb;
 var _t = core._t;
 
@@ -133,11 +134,11 @@ var OldOrdersWidget = pos_screens.ScreenWidget.extend({
             if (!self._locked) {
                 self.gui.screen_instances.receipt.print();
             }
-            new Model('pos.order').call('get_details',[self.pos_reference]).then(function(id){
-                self.chrome.do_action('order_reprinting_pos.pos_receipt_report',{additional_context:{
-                    active_ids:[id],
-                }});
-            });
+            // new Model('pos.order').call('get_details',[self.pos_reference]).then(function(id){
+            //     self.chrome.do_action('order_reprinting_pos.pos_receipt_report',{additional_context:{
+            //         active_ids:[id],
+            //     }});
+            // });
         });
     },
 
@@ -242,23 +243,23 @@ var OldOrdersWidget = pos_screens.ScreenWidget.extend({
             var lines = [];
             var payments = [];
             var discount = 0;
-            new Model('pos.order').call('get_orderlines',[order_new.pos_reference]).then(function(result){
-                lines = result[0];
-                payments = result[2];
-                discount = result[1];
-                self.gui.show_screen('OldOrdersWidget');
-                self.$('.window').html(QWeb.render('PosTicketOld',{
-                    widget:self,
-                    order: order_new,
-                    change: result[3],
-                    orderlines: lines,
-                    discount_total: discount,
-                    paymentlines: payments,
-                }));
-                self.pos_reference = order_new.pos_reference;
-            });
+            // new Model('pos.order').call('get_orderlines',[order_new.pos_reference]).then(function(result){
+            //     lines = result[0];
+            //     payments = result[2];
+            //     discount = result[1];
+            //     self.gui.show_screen('OldOrdersWidget');
+            //     self.$('.window').html(QWeb.render('PosTicketOld',{
+            //         widget:self,
+            //         order: order_new,
+            //         change: result[3],
+            //         orderlines: lines,
+            //         discount_total: discount,
+            //         paymentlines: payments,
+            //     }));
+            //     self.pos_reference = order_new.pos_reference;
+            // });
         });
-        
+
         var contents = this.$el[0].querySelector('.order-list-contents');
         if (contents){
             contents.innerHTML = "";
@@ -284,7 +285,7 @@ var OldOrdersWidget = pos_screens.ScreenWidget.extend({
             }
         }
     },
-    
+
     close: function(){
         this._super();
     },
