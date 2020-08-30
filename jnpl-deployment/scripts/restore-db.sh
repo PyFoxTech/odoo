@@ -6,11 +6,12 @@ then
   exit 1
 fi
 
-systemctl --user stop odoo.service;
+sudo supervisorctl stop odoo13;
+pkill -F /tmp/odoo-13.pid;
 
 dropdb odoo;
 createdb odoo -O odoo13;
 
 psql -d odoo < "$1";
 
-systemctl --user start odoo.service;
+sudo supervisorctl start odoo13;
