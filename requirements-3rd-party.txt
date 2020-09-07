@@ -1,2 +1,4 @@
-raven==6.10.0
+numpy==1.19.1
+pandas==1.1.1
 pycrypto==2.6.1
+raven==6.10.0
