@@ -248,7 +248,7 @@ var OldOrdersWidget = pos_screens.ScreenWidget.extend({
             //     payments = result[2];
             //     discount = result[1];
             //     self.gui.show_screen('OldOrdersWidget');
-            //     self.$('.window').html(QWeb.render('PosTicketOld',{
+            //     self.$('.window').html(QWeb.render('OrderReceiptOld',{
             //         widget:self,
             //         order: order_new,
             //         change: result[3],

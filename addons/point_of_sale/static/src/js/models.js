@@ -1502,10 +1502,20 @@ exports.Orderline = Backbone.Model.extend({
         }else{
             var quant = parseFloat(quantity) || 0;
             var unit = this.get_unit();
+
+            function countDecimals(value) {
+              if (Math.floor(value) === value) return 0;
+              return value.toString().split(".")[1].length || 0;
+            }
+
             if(unit){
                 if (unit.rounding) {
-                    var decimals = this.pos.dp['Product Unit of Measure'];
-                    var rounding = Math.max(unit.rounding, Math.pow(10, -decimals));
+                    // var decimals = this.pos.dp['Product Unit of Measure'];
+                    // var rounding = Math.max(unit.rounding, Math.pow(10, -decimals));
+
+                    var rounding = unit.rounding;
+                    var decimals = countDecimals(unit.rounding);
+
                     this.quantity    = round_pr(quant, rounding);
                     this.quantityStr = field_utils.format.float(this.quantity, {digits: [69, decimals]});
                 } else {
