@@ -1658,6 +1658,7 @@ exports.Orderline = Backbone.Model.extend({
     export_for_printing: function(){
         return {
             quantity:           this.get_quantity(),
+            quantityStr:        this.quantityStr,
             unit_name:          this.get_unit().name,
             price:              this.get_unit_display_price(),
             discount:           this.get_discount(),
