@@ -113,6 +113,14 @@ def main(env):
                 {'uom_po_id': new_uom.id, 'uom_id': new_uom.id})
             env.cr.commit()
 
+            bom_line_ids = env['mrp.bom.line'].search([
+                ['product_id', '=', product.id]
+            ])
+
+            for bom_line in bom_line_ids:
+                bom_line.product_uom_id = new_uom.id
+                env.cr.commit()
+
 
 if __name__ == '__main__':
     main()  # noqa
